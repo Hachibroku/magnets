@@ -3,6 +3,7 @@ import { DndContext, KeyboardSensor, PointerSensor, closestCorners, useSensor, u
 import { Column } from './components/Column/Column';
 import './App.css'
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { Input } from './components/Input/Input';
 
 
 export default function App() {
@@ -11,6 +12,10 @@ export default function App() {
     { id: 2, title: "Fix styling in about section"},
     { id: 3, title: "Learn how to center a div"},
   ]);
+
+  const addMagnet = title => {
+    setMagnets(magnets => [...magnets, {id: magnets.length + 1, title}])
+  }
 
   const getMagnetPos = id => magnets.findIndex(magnet => magnet.id === id)
   
@@ -38,6 +43,7 @@ export default function App() {
     <div className="App">
       <h1>My Magnets</h1>
       <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
+      <Input onSubmit={addMagnet} />
       <Column magnets={magnets} />
       </DndContext>
     </div>
